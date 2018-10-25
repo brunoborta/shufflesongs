@@ -21,15 +21,42 @@
         },
         data() {
             return {
-                songs: []
+                songs: [],
+                shuffledSongs: [],
+                listSize: 6
+            }
+        },
+        methods: {
+            shuffle(songsFromAPI, shuffledSongsArray, size) {
+                if(shuffledSongsArray.length >= size) { // Recursive finish
+                    return shuffledSongsArray;
+                }
+                const indexRecordShuffled = Math.floor(Math.random() * songsFromAPI.length);
+                // this.shuffledData
+                const shuffledArraySize = shuffledSongsArray.length;
+                const lastShuffledRecord = shuffledSongsArray[shuffledArraySize-1] || null;
+                const currentRecord = songsFromAPI[indexRecordShuffled];
+                // add to the shuffled array if it is empty or if the record shuffled is from a different artist
+                if(!lastShuffledRecord || (!!lastShuffledRecord && currentRecord.artistId !== lastShuffledRecord.artistId)) {
+                    songsFromAPI.splice(indexRecordShuffled, 1);
+                    // Excludes the artist record
+                    if(currentRecord.wrapperType !== "artist") {
+                        shuffledSongsArray.push(currentRecord);
+                    }
+                }
+                return shuffle(songsFromAPI, shuffledSongsArray, size);
             }
         },
         mounted() {
-                fetch(`${process.env.VUE_APP_SONGS_URL}lookup?id=909253,1171421960,358714030&limit=5`, 
+                fetch(`${process.env.VUE_APP_SONGS_URL}lookup?id=909253,1171421960,358714030&limit=5`,
                 {mode: 'cors'})
                 .then(response => {
                     console.log(response);
                     response.json();
+                })
+                .then(response => {
+                    this.songs = response;
+                    this.shuffledSongs = this.shuffle([...this.songs], [], this.listSize);
                 });
             this.songs =  [
         {
