@@ -44,12 +44,11 @@
                         shuffledSongsArray.push(currentRecord);
                     }
                 }
-                return shuffle(songsFromAPI, shuffledSongsArray, size);
+                return this.shuffle(songsFromAPI, shuffledSongsArray, size);
             }
         },
         mounted() {
-                fetch(`${process.env.VUE_APP_SONGS_URL}lookup?id=909253,1171421960,358714030&limit=5`,
-                {mode: 'cors'})
+                fetch(`${process.env.VUE_APP_SONGS_URL}`)
                 .then(response => {
                     console.log(response);
                     response.json();
