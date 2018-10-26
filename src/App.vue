@@ -1,13 +1,13 @@
 <template>
   <div id="app">
-    <transition name="fade">
-      <SuperiorBar v-if="showBar"/>
-    </transition>
-    <img alt="shufflesongs logo" src="./assets/logo.png">
-    <div class="presentation">
-      <h1>shufflesongs</h1>
+    <div class="logo flex" v-if="showLogo" v-on:click="showLogo = !showLogo">
+      <i class="fas fa-random fa-2x box"></i>
+      <h1 class="logo-title"> shuffle<span class="title-rose">songs</span></h1>
     </div>
-    <SongList />
+    <div v-else>
+      <SuperiorBar/>
+      <SongList />
+    </div>
   </div>
 </template>
 
@@ -23,19 +23,55 @@ export default {
   },
   data() {
     return {
-      showBar: false
+      showLogo: true
     }
   }
 }
 </script>
 
 <style>
+html {
+  background-image: linear-gradient(to bottom, #372638 75%, #844253);
+}
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  color: white;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.logo {
+  cursor: pointer;
+}
+
+.logo .title-rose{
+  color: #bb6075;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+}
+
+.flex *{
+  align-self: center;
+}
+
+.box {
+  padding: 4px;
+  border-radius: 10px;
+  border: 1px solid #bb6075;
+}
+
+.flex h1 {
+  font-size: 1.75em;
+}
+
+.flex .logo-title {
+  margin-left: 5px;
 }
 </style>
