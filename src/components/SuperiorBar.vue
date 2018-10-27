@@ -1,7 +1,7 @@
 <template>
     <div class="navbar">
         <div class="logo flex minilogo">
-            <Logo minilogo="true" />
+            <Logo minilogo />
         </div>
     </div>
 </template>
