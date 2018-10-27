@@ -19,9 +19,6 @@
         box-shadow: 3px 3px 10px 4px rgba(37,26,38,0.4);
         display: flex;
     }
-    .box {
-        border-radius: 5px;
-    }
     .minilogo {
         align-items: center;
         margin-left: 2em;

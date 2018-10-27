@@ -1,12 +1,14 @@
 <template>
   <div id="app">
-    <div class="logo flex" v-if="showLogo" v-on:click="showLogo = !showLogo">
+    <div class="logo flex" v-if="showLogo" @click="showLogo = !showLogo">
       <i class="fas fa-random fa-2x box"></i>
-      <h1 class="logo-title"> shuffle<span class="title-rose">songs</span></h1>
+      <h2 class="logo-title"> shuffle<span class="title-rose">songs</span></h2>
     </div>
     <div v-else>
       <SuperiorBar/>
-      <SongList />
+      <div class="flex section-height">
+        <SongList />
+      </div>
     </div>
   </div>
 </template>
@@ -40,15 +42,16 @@ html {
   -moz-osx-font-smoothing: grayscale;
   color: white;
   height: 100vh;
+  overflow-y: hidden;
   display: flex;
   justify-content: center;
 }
 
-.logo {
+#app > .logo {
   cursor: pointer;
 }
 
-.logo .title-rose{
+.title-rose{
   color: #bb6075;
 }
 
@@ -56,22 +59,24 @@ html {
   display: flex;
   justify-content: center;
 }
-
-.flex *{
+.section-height {
+  height: 80%;
+}
+.flex > * {
   align-self: center;
 }
 
 .box {
-  padding: 4px;
-  border-radius: 10px;
+  padding: 6px;
+  border-radius: 5px;
   border: 1px solid #bb6075;
 }
 
-.flex h1 {
+.flex h2 {
   font-size: 1.75em;
 }
 
 .flex .logo-title {
-  margin-left: 5px;
+  margin-left: 10px;
 }
 </style>

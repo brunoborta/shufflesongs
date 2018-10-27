@@ -1,12 +1,18 @@
 <template>
     <div id="songList">
-        <ul v-if="shuffledSongs.length">
-			<Song
-				v-for="song in shuffledSongs"
-				:key="song.id"
-				:song="song"
-			/>
-		</ul>
+        <div v-if="shuffledSongs.length">
+            <div class="flex playlist-title">
+                <h1>{{myPlaylist}}</h1>
+                <button @click="reShuffle"><i class="fas fa-random fa-2x"></i></button>
+            </div>
+            <ul v-if="shuffledSongs.length">
+                <Song
+                    v-for="song in shuffledSongs"
+                    :key="song.id"
+                    :song="song"
+                />
+            </ul>
+        </div>
         <i v-else class="fas fa-spinner fa-spin fa-3x"></i>
 	</div>
 </template>
@@ -23,7 +29,8 @@
             return {
                 songs: [],
                 shuffledSongs: [],
-                listSize: 6
+                listSize: 6,
+                myPlaylist: "My Playlist"
             }
         },
         methods: {
@@ -32,11 +39,10 @@
                     return shuffledSongsArray;
                 }
                 const indexRecordShuffled = Math.floor(Math.random() * songsFromAPI.length);
-                // this.shuffledData
                 const shuffledArraySize = shuffledSongsArray.length;
                 const lastShuffledRecord = shuffledSongsArray[shuffledArraySize-1] || null;
                 const currentRecord = songsFromAPI[indexRecordShuffled];
-                // add to the shuffled array if it is empty or if the record shuffled is from a different artist
+                // Add to the shuffled array if it is empty or if the record shuffled is from a different artist
                 if(!lastShuffledRecord || (!!lastShuffledRecord && currentRecord.artistId !== lastShuffledRecord.artistId)) {
                     songsFromAPI.splice(indexRecordShuffled, 1);
                     // Excludes the artist record
@@ -45,7 +51,10 @@
                     }
                 }
                 return this.shuffle(songsFromAPI, shuffledSongsArray, size);
-            }
+            },
+            reShuffle() {
+                this.shuffledSongs = this.shuffle([...this.songs], [], this.listSize);
+            },
         },
         mounted() {
             fetch(`${process.env.VUE_APP_SONGS_URL}`)
@@ -54,20 +63,64 @@
                     this.songs = JSON.parse(result).results;
                     this.shuffledSongs = this.shuffle([...this.songs], [], this.listSize);
                 });
-            })
+            });
         }
     }
 </script>
 
 <style scoped>
     #songList {
-        height: 75vh;
-        width: 50vw;
+        display: flex;
+        align-items: center;
+        height: 100%;
+    }
+    ul {
         background-color: #372638;
         -webkit-box-shadow: 3px 3px 10px 4px rgba(37,26,38,0.4);
         -moz-box-shadow: 3px 3px 10px 4px rgba(37,26,38,0.4);
         box-shadow: 3px 3px 10px 4px rgba(37,26,38,0.4);
-        display: flex;
+        align-self: center;
+        padding: 10px 0 10px 10px;
+    }
+
+    @media only screen and (max-device-width: 450px) {
+        ul {
+            width: 75vw;
+        }
+    }
+
+    @media only screen and (min-device-width: 451px) and (max-device-width: 850px) {
+        ul {
+            width: 50vw;
+        }
+    }
+
+    @media only screen and (min-device-width: 851px) {
+        ul {
+            width: 35vw;
+        }
+    }
+
+    .fa-spinner {
         justify-content: center;
+        align-self: center;
+    }
+    .playlist-title {
+        justify-content: space-between;
+    }
+    h1 {
+        font-size: 2.25em;
+        margin: 0;
+    }
+    button {
+        background-color: #bb6075;
+        border-radius: 100%;
+        border: 0;
+        color: white;
+        padding: 10px;
+        -webkit-box-shadow: 3px 3px 10px 4px rgba(37,26,38,0.4);
+        -moz-box-shadow: 3px 0 10px 4px rgba(37,26,38,0.4);
+        box-shadow: 3px 3px 10px 4px rgba(37,26,38,0.4);
+        cursor: pointer;
     }
 </style>
