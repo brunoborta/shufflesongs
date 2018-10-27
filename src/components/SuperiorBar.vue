@@ -1,14 +1,20 @@
 <template>
     <div class="navbar">
         <div class="logo flex minilogo">
-            <i class="fas fa-random box"></i>
-            <p class="logo-title"> shuffle<span class="title-rose">songs</span></p>
+            <Logo minilogo="true" />
         </div>
     </div>
 </template>
 
 <script>
-    
+    import Logo from './Logo.vue';
+
+    export default {
+        name: 'app',
+        components: {
+            Logo
+        },
+    }
 </script>
 
 <style scoped>
@@ -20,11 +26,6 @@
         display: flex;
     }
     .minilogo {
-        align-items: center;
         margin-left: 2em;
     }
-    .minilogo p {
-        font-weight: 500;
-    }
-
 </style>

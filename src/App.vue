@@ -1,9 +1,6 @@
 <template>
   <div id="app">
-    <div class="logo flex" v-if="showLogo" @click="showLogo = !showLogo">
-      <i class="fas fa-random fa-2x box"></i>
-      <h2 class="logo-title"> shuffle<span class="title-rose">songs</span></h2>
-    </div>
+    <Logo v-if="showLogo" @click.native="showLogo = !showLogo"/>
     <div v-else>
       <SuperiorBar/>
       <div class="flex section-height">
@@ -16,12 +13,14 @@
 <script>
 import SongList from './components/SongList.vue';
 import SuperiorBar from './components/SuperiorBar.vue';
+import Logo from './components/Logo.vue';
 
 export default {
   name: 'app',
   components: {
     SuperiorBar,
-    SongList
+    SongList,
+    Logo
   },
   data() {
     return {
@@ -47,10 +46,6 @@ html {
   justify-content: center;
 }
 
-#app > .logo {
-  cursor: pointer;
-}
-
 .title-rose{
   color: #bb6075;
 }
@@ -64,19 +59,5 @@ html {
 }
 .flex > * {
   align-self: center;
-}
-
-.box {
-  padding: 6px;
-  border-radius: 5px;
-  border: 1px solid #bb6075;
-}
-
-.flex h2 {
-  font-size: 1.75em;
-}
-
-.flex .logo-title {
-  margin-left: 10px;
 }
 </style>
