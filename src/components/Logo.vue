@@ -1,5 +1,5 @@
 <template>
-    <div class="logo flex">
+    <div class="flex">
         <div v-if="minilogo" class="logo flex">
             <i class="fas fa-random box"></i>    
             <p v-if="minilogo" class="logo-title"> shuffle<span class="title-rose">songs</span></p>
