@@ -2,7 +2,7 @@
     <div id="songList">
         <div v-if="shuffledSongs.length">
             <div class="flex playlist-title">
-                <h1>{{myPlaylist}}</h1>
+                <h1>{{myPlaylistTitle}}</h1>
                 <button @click="reShuffle"><i class="fas fa-random fa-2x"></i></button>
             </div>
             <ul v-if="shuffledSongs.length">
@@ -30,7 +30,7 @@
                 songs: [],
                 shuffledSongs: [],
                 listSize: 6,
-                myPlaylist: "My Playlist"
+                myPlaylistTitle: "My Playlist"
             }
         },
         methods: {
