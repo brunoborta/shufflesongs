@@ -1,16 +1,5 @@
 import { expect } from 'chai';
-import { shallowMount } from '@vue/test-utils';
 import SongList from '@/components/SongList.vue';
-
-const songListFactory = (values = {}) => {
-  return shallowMount(SongList, {
-    data() {
-      return {
-        ...values
-      }
-    }
-  });
-}
 
 describe('SongList', () => {
   describe('does property', () => {
